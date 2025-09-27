@@ -45,7 +45,7 @@ router.post("/send/:status/:toUserId", isAuth, async(req, res)=>{
 
 })
 
-router.get("/review/:status/:requestId", isAuth, async(req,res)=>{
+router.post("/review/:status/:requestId", isAuth, async(req,res)=>{
     try {
         
         const {status, requestId} = req.params;
@@ -76,5 +76,7 @@ router.get("/review/:status/:requestId", isAuth, async(req,res)=>{
         res.status(400).json({error:err.message})
     }
 })
+
+
 
 export default router;
