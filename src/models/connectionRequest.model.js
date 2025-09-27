@@ -1,13 +1,18 @@
 import mongoose from "mongoose";
 
+import { User } from "./user.model.js";
+
+
 const connectionRequestSchema = new mongoose.Schema({
     from:{
         type:mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: User
     },
     to:{
         type:mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: User
     },
     status:{
         type: String,
