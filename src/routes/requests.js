@@ -72,7 +72,7 @@ router.post("/review/:status/:requestId", isAuth, async(req,res)=>{
         await connectionRequest.save();
 
         res.json({message: "connection requests"+status})
-    } catch (error) {
+    } catch (err) {
         res.status(400).json({error:err.message})
     }
 })
