@@ -22,4 +22,6 @@ const connectionRequestSchema = new mongoose.Schema({
 
 },{timestamps:true})
 
-export const  ConnectionRequest = mongoose.model("ConnectionRequest",connectionRequestSchema)
+connectionRequestSchema.index({from: 1, to: 1});
+
+export const  ConnectionRequest = mongoose.model("ConnectionRequest",connectionRequestSchema);
