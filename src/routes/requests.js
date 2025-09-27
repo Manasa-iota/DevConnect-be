@@ -45,10 +45,36 @@ router.post("/send/:status/:toUserId", isAuth, async(req, res)=>{
 
 })
 
-router.get("/review", isAuth, async(req,res)=>{
+router.get("/review/:status/:requestId", isAuth, async(req,res)=>{
+    try {
+        
+        const {status, requestId} = req.params;
 
-    
+        if(!status || !requestId){
+            return res.status(400).json({error:"empty params"})
+        }
 
+        const allowedStatus = ["accepted","rejected"];
+
+        if(!allowedStatus.includes(status)){
+            return res.status(400).json({
+                error:"Invalid status type"
+            })
+        }
+
+        const connectionRequest = await ConnectionRequest.findOne({_id:requestId,to:req.user._id,status:"interested"});
+
+        if(!connectionRequest){
+            return res.status(400).json({error:"invalid request review"})
+        }
+        
+        connectionRequest.status=status;
+        await connectionRequest.save();
+
+        res.json({message: "connection requests"+status})
+    } catch (error) {
+        res.status(400).json({error:err.message})
+    }
 })
 
 export default router;
