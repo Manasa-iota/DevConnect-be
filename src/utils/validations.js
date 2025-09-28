@@ -38,7 +38,7 @@ export const validateProfileUpdate = (req) => {
     if (!isValid) {
         throw new Error("Invalid fields to update");
     }
-    for (const [key, value] of Object.entries(body)) {
+    for (const [key, value] of Object.entries(req.body)) {
         const isValid = fieldValidators[key](value);
         if (!isValid) {
             throw new Error(`Invalid value for ${key}`);
