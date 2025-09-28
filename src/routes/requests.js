@@ -1,4 +1,4 @@
-import Router, { json } from "express";
+import {Router} from "express";
 
 import { isAuth } from "../middlewares/auth.js"
 import { User } from "../models/user.model.js";
