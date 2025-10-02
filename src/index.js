@@ -1,5 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import cors from 'cors';
 
 import { User } from "./models/user.model.js";
 import { connectDB } from "./config/database.js";
@@ -10,6 +11,10 @@ import requestsRouter from "./routes/requests.js";
 import userRouter from "./routes/user.js"
 
 const app = express();
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(cookieParser());
