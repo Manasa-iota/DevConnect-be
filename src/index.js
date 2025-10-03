@@ -1,43 +1,15 @@
-import express from "express";
-import cookieParser from "cookie-parser";
-import cors from 'cors';
-
-import { User } from "./models/user.model.js";
+import app from "./app.js";
 import { connectDB } from "./config/database.js";
 
-import authRouter from "./routes/auth.js";
-import profileRouter from "./routes/profile.js";
-import requestsRouter from "./routes/requests.js";
-import userRouter from "./routes/user.js";
-import MessageRouter from "./routes/messages.js"
+const PORT = process.env.PORT || 3000;
 
-const app = express();
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
-}));
-
-app.use(express.json());
-app.use(cookieParser());
-
-app.get("/",(req,res)=>{
-    res.send("hello")
-})
-
-app.use("/auth",authRouter);
-
-app.use("/profile",profileRouter);
-
-app.use("/requests",requestsRouter);
-
-app.use("/user",userRouter);
-
-app.use("/messages",MessageRouter);
-
-connectDB().then(()=>{
-    app.listen(3000,()=>{
-        console.log("listening on port 3000");
-    })
-}).catch((err)=>{
-    console.log(err)
-})
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`listening on ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("DB connect error", err);
+    process.exit(1);
+  });
