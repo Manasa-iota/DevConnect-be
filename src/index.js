@@ -8,7 +8,8 @@ import { connectDB } from "./config/database.js";
 import authRouter from "./routes/auth.js";
 import profileRouter from "./routes/profile.js";
 import requestsRouter from "./routes/requests.js";
-import userRouter from "./routes/user.js"
+import userRouter from "./routes/user.js";
+import MessageRouter from "./routes/messages.js"
 
 const app = express();
 app.use(cors({
@@ -30,6 +31,8 @@ app.use("/profile",profileRouter);
 app.use("/requests",requestsRouter);
 
 app.use("/user",userRouter);
+
+app.use("/messages",MessageRouter);
 
 connectDB().then(()=>{
     app.listen(3000,()=>{
